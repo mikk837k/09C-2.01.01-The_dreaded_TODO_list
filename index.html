@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>09C-2.01.01 - The dreaded TODO list</title>
+  </head>
+  <body>
+    <form action="">
+      <div id="desc">
+        <label for="description">Description:</label>
+        <input type="text" id="description" required />
+      </div>
+      <div id="duedate">
+        <label for="duedate">Due date:</label>
+        <input type="date" id="duedate" required />
+      </div>
+      <div id="location">
+        <label for="location">Location:</label>
+        <input type="text" id="location" />
+      </div>
+      <div id="notes">
+        <label for="notes">Notes:</label>
+        <input type="text" id="notes" />
+      </div>
+      <div id="status">
+        <label for="status">Task finished?:</label>
+        <input type="checkbox" id="status" />
+      </div>
+      <div id="submit">
+        <input type="submit" />
+      </div>
+    </form>
+    <div id="listOfTasks">
+      <div class="dataContainer"></div>
+      <template>
+        <h1 data-field="title"></h1>
+        <h2 data-field="duedate"></h2>
+        <p data-field="location"></p>
+        <p data-field="notes"></p>
+      </template>
+      <script src="script.js"></script>
+    </div>
+  </body>
+</html>
