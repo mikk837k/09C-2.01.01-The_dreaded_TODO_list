@@ -64,8 +64,12 @@ function showData(task) {
   let myTemp = document.querySelector("template").content;
   let clone = myTemp.cloneNode(true);
 
+  const newDateFormat = manipulateDateFormat(task);
+
+  console.log(newDateFormat);
+
   clone.querySelector("[data-field=title]").textContent = task.Description;
-  clone.querySelector("[data-field=duedate]").textContent = task.Due;
+  clone.querySelector("[data-field=duedate]").textContent = newDateFormat;
   clone.querySelector("[data-field=location]").textContent = task.Where;
   clone.querySelector("[data-field=notes]").textContent = task.Notes;
   clone.querySelector("button").dataset.id = task._id;
@@ -82,6 +86,21 @@ function showData(task) {
   });
 }
 
+// this function manipulates the date format recieved from det database into a format that the site should display.
+// This is then returned to the function showdata();
+function manipulateDateFormat(task) {
+  const sliceDate = task.Due.slice(0, 10);
+  const splitDate = sliceDate.split("-");
+  const concatDateFormat = splitDate[2].concat(
+    `-`,
+    splitDate[1],
+    `-`,
+    splitDate[0]
+  );
+
+  return concatDateFormat;
+}
+
 form.addEventListener("submit", e => {
   form.elements.submit.disabled = true;
   e.preventDefault();
@@ -92,7 +111,12 @@ form.addEventListener("submit", e => {
     Where: form.elements.location.value,
     Notes: form.elements.notes.value
   };
+
+  console.table(payload);
   post(payload);
 });
 
-// TODO: use update on completed tasks instead of delete, Find a way to get the date to work as intended(ask Jonas)
+// TODO:
+//  - use update on completed tasks instead of delete,
+//  - Find a way to get the date to be shown in the format dd-mm-yyyy(ask Jonas)
+//  - Find out how to control the format send to db
