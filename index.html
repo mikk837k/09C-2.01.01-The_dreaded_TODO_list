@@ -7,29 +7,26 @@
     <title>09C-2.01.01 - The dreaded TODO list</title>
   </head>
   <body>
-    <form action="">
+    <form action="" method="POST">
       <div id="desc">
         <label for="description">Description:</label>
-        <input type="text" id="description" required />
+        <input type="text" id="description" name="description" required />
       </div>
       <div id="duedate">
         <label for="duedate">Due date:</label>
-        <input type="date" id="duedate" required />
+        <input type="date" id="duedate" name="duedate" required />
       </div>
       <div id="location">
         <label for="location">Location:</label>
-        <input type="text" id="location" />
+        <input type="text" id="location" name="location" />
       </div>
       <div id="notes">
         <label for="notes">Notes:</label>
-        <input type="text" id="notes" />
+        <input type="text" id="notes" name="notes" />
       </div>
-      <div id="status">
-        <label for="status">Task finished?:</label>
-        <input type="checkbox" id="status" />
-      </div>
+
       <div id="submit">
-        <input type="submit" />
+        <input type="submit" name="submit" />
       </div>
     </form>
     <div id="listOfTasks">
@@ -39,6 +36,7 @@
         <h2 data-field="duedate"></h2>
         <p data-field="location"></p>
         <p data-field="notes"></p>
+        <button>Task Done</button>
       </template>
       <script src="script.js"></script>
     </div>
