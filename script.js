@@ -57,6 +57,23 @@ function deletePost(id) {
     });
 }
 
+function updatePost(id, payload) {
+  console.log(id);
+  fetch("https://thetodollst-b2b5.restdb.io/rest/tasks/" + id, {
+    method: "put",
+    body: JSON.stringify(payload),
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "x-apikey": "5c8019cdcac6621685acbc19",
+      "cache-control": "no-cache"
+    }
+  })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+    });
+}
+
 function showData(task) {
   console.log("showData");
   console.table(task);
@@ -72,17 +89,31 @@ function showData(task) {
   clone.querySelector("[data-field=duedate]").textContent = newDateFormat;
   clone.querySelector("[data-field=location]").textContent = task.Where;
   clone.querySelector("[data-field=notes]").textContent = task.Notes;
-  clone.querySelector("button").dataset.id = task._id;
+  clone.querySelector("[data-action=delete]").dataset.id = task._id;
+  clone.querySelector("[data-action=done]").dataset.id = task._id;
 
   const dest = document.querySelector(".dataContainer");
 
   dest.insertBefore(clone, dest.childNodes[0]);
 
-  document.querySelector("button").addEventListener("click", e => {
-    console.log(e.target.dataset.id);
-    e.target.parentElement.remove();
+  document
+    .querySelector("[data-action=delete]")
+    .addEventListener("click", e => {
+      console.log(e.target.dataset.id);
+      e.target.parentElement.remove();
 
-    deletePost(e.target.dataset.id);
+      deletePost(e.target.dataset.id);
+    });
+  document.querySelector("[data-action=done]").addEventListener("click", e => {
+    console.log(e.target.dataset.id);
+
+    const payload = {
+      Done: true
+    };
+
+    e.target.parentElement.style.backgroundColor = "lightgreen";
+    e.target.style.display = "none";
+    updatePost(e.target.dataset.id, payload);
   });
 }
 
@@ -118,5 +149,5 @@ form.addEventListener("submit", e => {
 
 // TODO:
 //  - use update on completed tasks instead of delete,
-//  - Find a way to get the date to be shown in the format dd-mm-yyyy(ask Jonas)
+//  DONE - Find a way to get the date to be shown in the format dd-mm-yyyy(ask Jonas)
 //  - Find out how to control the format send to db
